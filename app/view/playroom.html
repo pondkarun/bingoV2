@@ -1,0 +1,118 @@
+﻿<style>
+    td {
+        height: 100px;
+        width: 100px;
+        vertical-align: middle;
+    }
+    
+    table,
+    td,
+    th {
+        border: 1px solid black;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    .bingo {
+        background-color: brown;
+        color: cornsilk;
+        border-radius: 65px;
+        width: 75px;
+        height: 75px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .text-red {
+        color: red;
+    }
+    
+    .text-green {
+        color: green;
+    }
+</style>
+<div ng-controller="playroomController as ctrl" class="main" ng-init="ctrl.init()">
+    <section class="container text-center">
+        <div class="row">
+            <div class="col-2 text-left">
+                <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
+                <ul>
+                    <li ng-repeat="i in player">{{i.user}} <i class="fas fa-circle-notch fa-spin" ng-if="i.status == 'false'"></i> <i class="fas fa-check-circle text-green" ng-if="i.status == 'true'"></i></li>
+                </ul>
+                <h3 class="text-center pb-2"><u>BINGO</u></h3>
+                <ul>
+                    <li ng-repeat="i in randomGame">{{i.game}} = <b class="text-red">{{i.number}}</b></li>
+                </ul>
+            </div>
+
+            <div class="col-10">
+                <table>
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="5" style="padding: 20px; font-size: 50px;">BINGO</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="item in myTable">
+                        <td ng-repeat="x in item">
+                            <center>
+                                <div ng-class="{'bingo': x.is_find == true}">
+                                    {{x.number}}
+                                </div>
+                            </center>
+
+                        </td>
+                    </tr>
+
+                    <tr ng-if="myTable.length == 0">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-if="myTable.length == 0">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-if="myTable.length == 0">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-if="myTable.length == 0">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-if="myTable.length == 0">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </table>
+                <div class="p-3">
+
+                    <input class="tgl tgl-flip" id="Ready" type="checkbox" ng-model="model.readyOrNot" ng-click="vote()" ng-if="!is_show">
+                    <label class="tgl-btn" data-tg-off="{{voteReady}}" data-tg-on="{{voteReady}}" for="Ready" ng-if="!is_show"></label>
+
+                    <button ng-click="random()" ng-if="is_show"> Random </button>
+                    <button ng-click="select()" ng-if="is_show"> Select </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
