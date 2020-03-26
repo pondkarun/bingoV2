@@ -1,42 +1,7 @@
-﻿<style>
-    td {
-        height: 100px;
-        width: 100px;
-        vertical-align: middle;
-    }
-    
-    table,
-    td,
-    th {
-        border: 1px solid black;
-    }
-    
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    
-    .bingo {
-        background-color: brown;
-        color: cornsilk;
-        border-radius: 65px;
-        width: 75px;
-        height: 75px;
-        text-align: center;
-        display: table-cell;
-        vertical-align: middle;
-    }
-    
-    .text-red {
-        color: red;
-    }
-    
-    .text-green {
-        color: green;
-    }
-</style>
-<div ng-controller="playroomController as ctrl" class="main" ng-init="ctrl.init()">
-    <section class="container text-center">
+﻿<div ng-controller="playroomController as ctrl" ng-init="ctrl.init()">
+
+    <navbar></navbar>
+    <section class="container text-center pt-5">
         <div class="row">
             <div class="col-2 text-left">
                 <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
@@ -116,3 +81,41 @@
         </div>
     </section>
 </div>
+
+<style>
+    td {
+        height: 100px;
+        width: 100px;
+        vertical-align: middle;
+    }
+    
+    table,
+    td,
+    th {
+        border: 1px solid black;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    .bingo {
+        background-color: brown;
+        color: cornsilk;
+        border-radius: 65px;
+        width: 75px;
+        height: 75px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .text-red {
+        color: red;
+    }
+    
+    .text-green {
+        color: green;
+    }
+</style>

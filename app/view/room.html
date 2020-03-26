@@ -25,10 +25,10 @@
                     <td>{{$index + 1}}</td>
                     <td>{{item.name}} <i class="fa fa-lock" ng-if="item.password"></i></td>
                     <td>{{item.bet | number}}</td>
-                    <td>{{item.COUNT_PAR | number}}0 คน</td>
+                    <td>{{item.COUNT_PAR | number}} คน</td>
                     <td>{{item.status}}</td>
                     <td>
-                        <a href="" ng-click="ctrl.selectRoom($index,item.id)">Select</a>
+                        <a href="" ng-click="ctrl.selectRoom($index,item.id)" ng-if="item.status == 'รอผู้เล่น'">Select</a>
                     </td>
                 </tr>
 

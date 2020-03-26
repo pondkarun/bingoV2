@@ -1,4 +1,4 @@
-﻿app.controller('roomController', function($scope, $location, $http, playerService) {
+﻿app.controller('roomController', function($scope, $location, $http, playerService, roomService) {
     _this = this;
     $scope.isCreateRoom = false; //เช็คว่าสร้างหน้างไหม
     this.modelRoom = {
@@ -43,17 +43,19 @@
 
     /** เข้าห้อง */
     const goRoom = (id) => {
-        console.log("Room id", id);
+        // console.log("Room id", id);
         let model = {
             id_room: id,
             id_player: playerService.getId()
         }
+
         $http.post(webConfig.webApi + "room/playRoomService.php", model)
+        roomService.saveData(model)
         $location.path("/playroom/" + id);
     }
 
     /** cancel สร้างห้อง */
-    this.cancelRoom = () => {
+    this.cancelRoom = (model) => {
         $scope.isCreateRoom = false;
     }
 
@@ -72,6 +74,7 @@
                 loading.close();
                 if (res.data.status == "200") {
                     $scope.isCreateRoom = false;
+                    goRoom(res.data.id_room)
                 } else if (res.data.status == "404") {
                     alert("Error")
                 }
