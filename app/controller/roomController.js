@@ -1,4 +1,4 @@
-﻿app.controller('roomController', function($scope, $location, $http, playerService, roomService) {
+﻿app.controller('roomController', function($scope, $location, $http, playerService) {
     _this = this;
     $scope.isCreateRoom = false; //เช็คว่าสร้างหน้างไหม
     this.modelRoom = {
@@ -11,7 +11,7 @@
     }
 
     this.init = function() {
-        getRoom();
+        selectRoomMe()
     }
 
 
@@ -50,7 +50,11 @@
         }
 
         $http.post(webConfig.webApi + "room/playRoomService.php", model)
-        roomService.saveData(model)
+        locationPlayroom(id)
+    }
+
+    /** path playroom*/
+    const locationPlayroom = (id) => {
         $location.path("/playroom/" + id);
     }
 
@@ -105,6 +109,18 @@
             $http.get(webConfig.webApi + "room/getRoomService.php").then((res) => {
                 result(res.data)
             })
-        }, 1500);
+        }, 150000);
+    }
+
+    /** หาห้องที่เคยเข้า */
+    const selectRoomMe = () => {
+        $http.post(webConfig.webApi + "room/selectRoomMeService.php", this.modelRoom).then((res) => {
+            console.log("res.data", res.data);
+            if (res.data.status) {
+                locationPlayroom(res.data.id_room)
+            } else {
+                getRoom();
+            }
+        })
     }
 });
