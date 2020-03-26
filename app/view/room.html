@@ -13,27 +13,25 @@
                 <tr class="text-center">
                     <th width="5%">#</th>
                     <th width="20%">ชื่อห้อง</th>
-                    <th width="10%">เลขสูงสุด</th>
-                    <th width="10%">เงินเดิมพัน</th>
+                    <th width="10%">คะแนนเดิมพัน</th>
                     <th width="10%">จำนวนคน</th>
                     <th width="15%">สถานะ</th>
                     <th width="15%">เลือกห้อง</th>
                 </tr>
             </thead>
             <tbody>
-                <md-virtual-repeat-container>
-                    <tr class="text-center" md-virtual-repeat="item in room">
-                        <td>{{$index + 1}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.numberLength | number}}</td>
-                        <td>{{item.bet | number}}</td>
-                        <td>{{item.COUNT_PAR | number}}0 คน</td>
-                        <td>{{item.status}}</td>
-                        <td>
-                            <a href="" ng-click="select(i.id)">Select</a>
-                        </td>
-                    </tr>
-                </md-virtual-repeat-container>
+
+                <tr class="text-center" ng-repeat="item in room">
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.name}} <i class="fa fa-lock" ng-if="item.password"></i></td>
+                    <td>{{item.bet | number}}</td>
+                    <td>{{item.COUNT_PAR | number}}0 คน</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                        <a href="" ng-click="ctrl.selectRoom($index,item.id)">Select</a>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
     </div>
@@ -44,10 +42,10 @@
                 <div class="form">
                     <h1 class="pb-4" style="color: #f2f2f2;">สร้างห้อง</h1>
                     <input type="text" placeholder="ชื่อห้อง" ng-model="ctrl.modelRoom.name" required>
-                    <input type="number" placeholder="เลขสูงสุด" ng-model="ctrl.modelRoom.number" required>
                     <input type="number" min="0" placeholder="คะแนนเดิมพัน" ng-model="ctrl.modelRoom.bet" required>
                     <input type="password" placeholder="รหัสห้อง (ไม่ตั้งได้)" ng-model="ctrl.modelRoom.password">
                     <button id="login" type="submit" ng-click="ctrl.submiteRoom()">Submit</button></br>
+                    <button id="login" type="submit" ng-click="ctrl.cancelRoom()">Cancel</button></br>
                 </div>
             </div>
         </form>

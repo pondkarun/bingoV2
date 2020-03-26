@@ -15,6 +15,48 @@
     }
 
 
+    /** เลือกห้อง */
+    this.selectRoom = (index, id) => {
+        if ($scope.room[index].password) {
+            let person = window.prompt("Password Room", "");
+            if (person) {
+                let md5Person = md5(person);
+                let model = {
+                    id: id,
+                    password: md5Person
+                }
+                $http.post(webConfig.webApi + "room/passwordRoomService.php", model).then((res) => {
+                    // console.log("res.data", typeof res.data.status);
+                    if (res.data.status) {
+                        goRoom(id);
+                    } else {
+                        alert("รหัสเข้าห้องไม่ถูกต้อง")
+                    }
+                }).catch((err) => {
+                    alert("Error")
+                })
+            }
+        } else {
+            goRoom(id);
+        }
+    }
+
+    /** เข้าห้อง */
+    const goRoom = (id) => {
+        console.log("Room id", id);
+        let model = {
+            id_room: id,
+            id_player: playerService.getId()
+        }
+        $http.post(webConfig.webApi + "room/playRoomService.php", model)
+        $location.path("/playroom/" + id);
+    }
+
+    /** cancel สร้างห้อง */
+    this.cancelRoom = () => {
+        $scope.isCreateRoom = false;
+    }
+
     /** กดสร้างห้อง */
     this.createRoom = () => {
         $scope.isCreateRoom = true
@@ -22,14 +64,8 @@
 
     /** Save สร้างห้อง */
     this.submiteRoom = () => {
-        if (this.modelRoom.name && this.modelRoom.number && this.modelRoom.bet) {
+        if (this.modelRoom.name && this.modelRoom.bet) {
             this.modelRoom.password = (this.modelRoom.password) ? md5(this.modelRoom.password) : null
-            let arr = []
-            for (let i = 1; i <= this.modelRoom.number; i++) {
-                this.modelRoom.numberArr.push(i)
-            }
-            console.log("this.modelRoom", this.modelRoom);
-
             loading.open();
             $http.post(webConfig.webApi + "room/createRoomService.php", this.modelRoom).then((res) => {
                 // console.log("res.data", res.data);
@@ -50,16 +86,12 @@
         }
     }
 
-
-
     /** รายชื่อห้อง */
     const getRoom = () => {
         const result = (res) => {
             res.filter(e => {
-                e.number = JSON.parse(e.number)
-                e.numberLength = e.number.length
-            });
-            // console.log("res", res);
+                e.password = (e.password) ? true : false;
+            })
             $scope.room = res
         }
         $http.get(webConfig.webApi + "room/getRoomService.php").then((res) => {

@@ -20,7 +20,7 @@
                 factory: checkPermisstion
             }
         })
-        .when('/playroom', {
+        .when('/playroom/:id', {
             templateUrl: './app/view/playroom.html',
             controller: 'playroomController',
             resolve: {

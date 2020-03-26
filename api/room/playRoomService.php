@@ -7,26 +7,21 @@ header('Access-Control-Allow-Headers: *');
 $input = file_get_contents('php://input');
 $postRequest = json_decode($input);
 
-$name = @$postRequest->name;
+$id_room = @$postRequest->id_room;
 $id_player = @$postRequest->id_player;
-$bet = @$postRequest->bet;
-$password = @$postRequest->password;
+
 $resultObj = new \stdClass();
 
-if ($name) {
-    $sql = "INSERT INTO room 
+if ($id_room && $id_player) {
+    $sql = "INSERT INTO player_room 
     ( 
-        `name`,
         `id_player`,
-        `bet`,
-        `password` 
+        `id_room`
     ) 
     VALUES 
     ( 
-        '".$name."',
         '".$id_player."',
-        '".$bet."',
-        '".$password."'
+        '".$id_room."'
     )";
     $result = mysqli_query($condb, $sql);
     $resultObj->status = '200';
