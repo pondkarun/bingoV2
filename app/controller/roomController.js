@@ -1,5 +1,6 @@
 ﻿app.controller('roomController', function($scope, $location, $http, playerService) {
     _this = this;
+    $scope.isShow = false;
     $scope.isCreateRoom = false; //เช็คว่าสร้างหน้างไหม
     this.modelRoom = {
         name: null,
@@ -11,6 +12,7 @@
     }
 
     this.init = function() {
+        loading.open();
         selectRoomMe()
     }
 
@@ -103,6 +105,10 @@
         }
         $http.get(webConfig.webApi + "room/getRoomService.php").then((res) => {
             result(res.data)
+            loading.close();
+        }).catch((err) => {
+            alert("Error")
+            loading.close();
         })
 
         setInterval(function() {
@@ -118,8 +124,10 @@
             console.log("res.data", res.data);
             if (res.data.status) {
                 locationPlayroom(res.data.id_room)
+                loading.close();
             } else {
                 getRoom();
+                $scope.isShow = true;
             }
         })
     }

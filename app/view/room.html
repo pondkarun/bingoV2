@@ -2,55 +2,55 @@
     <!-- Just an image -->
 
     <navbar></navbar>
+    <section ng-show="isShow">
+        <div class="container pt-5" ng-if="!isCreateRoom">
+            <div class="pb-3">
+                <button class="btn btn-info" ng-click="ctrl.createRoom()">สร้างห้อง</button>
+            </div>
 
-    <div class="container pt-5" ng-if="!isCreateRoom">
-        <div class="pb-3">
-            <button class="btn btn-info" ng-click="ctrl.createRoom()">สร้างห้อง</button>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr class="text-center">
+                        <th width="5%">#</th>
+                        <th width="20%">ชื่อห้อง</th>
+                        <th width="10%">คะแนนเดิมพัน</th>
+                        <th width="10%">จำนวนคน</th>
+                        <th width="15%">สถานะ</th>
+                        <th width="15%">เลือกห้อง</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="text-center" ng-repeat="item in room">
+                        <td>{{$index + 1}}</td>
+                        <td>{{item.name}} <i class="fa fa-lock" ng-if="item.password"></i></td>
+                        <td>{{item.bet | number}}</td>
+                        <td>{{item.COUNT_PAR | number}} คน</td>
+                        <td>{{item.status}}</td>
+                        <td>
+                            <a href="" ng-click="ctrl.selectRoom($index,item.id)" ng-if="item.status == 'รอผู้เล่น'">Select</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
 
-        <table class="table table-bordered">
-            <thead class="thead-light">
-                <tr class="text-center">
-                    <th width="5%">#</th>
-                    <th width="20%">ชื่อห้อง</th>
-                    <th width="10%">คะแนนเดิมพัน</th>
-                    <th width="10%">จำนวนคน</th>
-                    <th width="15%">สถานะ</th>
-                    <th width="15%">เลือกห้อง</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr class="text-center" ng-repeat="item in room">
-                    <td>{{$index + 1}}</td>
-                    <td>{{item.name}} <i class="fa fa-lock" ng-if="item.password"></i></td>
-                    <td>{{item.bet | number}}</td>
-                    <td>{{item.COUNT_PAR | number}} คน</td>
-                    <td>{{item.status}}</td>
-                    <td>
-                        <a href="" ng-click="ctrl.selectRoom($index,item.id)" ng-if="item.status == 'รอผู้เล่น'">Select</a>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-
-    <div class="main" ng-if="isCreateRoom">
-        <form name="createRoomForm" class="text-center">
-            <div class="login-page">
-                <div class="form">
-                    <h1 class="pb-4" style="color: #f2f2f2;">สร้างห้อง</h1>
-                    <input type="text" placeholder="ชื่อห้อง" ng-model="ctrl.modelRoom.name" required>
-                    <input type="number" min="0" placeholder="คะแนนเดิมพัน" ng-model="ctrl.modelRoom.bet" required>
-                    <input type="password" placeholder="รหัสห้อง (ไม่ตั้งได้)" ng-model="ctrl.modelRoom.password">
-                    <button id="login" type="submit" ng-click="ctrl.submiteRoom()">Submit</button></br>
-                    <button id="login" type="submit" ng-click="ctrl.cancelRoom()">Cancel</button></br>
+        <div class="main" ng-if="isCreateRoom">
+            <form name="createRoomForm" class="text-center">
+                <div class="login-page">
+                    <div class="form">
+                        <h1 class="pb-4" style="color: #f2f2f2;">สร้างห้อง</h1>
+                        <input type="text" placeholder="ชื่อห้อง" ng-model="ctrl.modelRoom.name" required>
+                        <input type="number" min="0" placeholder="คะแนนเดิมพัน" ng-model="ctrl.modelRoom.bet" required>
+                        <input type="password" placeholder="รหัสห้อง (ไม่ตั้งได้)" ng-model="ctrl.modelRoom.password">
+                        <button id="login" type="submit" ng-click="ctrl.submiteRoom()">Submit</button></br>
+                        <button id="login" type="submit" ng-click="ctrl.cancelRoom()">Cancel</button></br>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-
+            </form>
+        </div>
+    </section>
 </div>
 
 
