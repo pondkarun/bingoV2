@@ -1,20 +1,18 @@
 ﻿<div ng-controller="playroomController as ctrl" ng-init="ctrl.init()">
 
     <navbar></navbar>
-    <section class="container text-center pt-5">
+
+    <div class="container text-center pt-5" ng-if="!ReadyRoom">
         <div class="row">
             <div class="col-2 text-left">
-                <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
-                <ul>
-                    <li ng-repeat="i in player">{{i.user}} <i class="fas fa-circle-notch fa-spin" ng-if="i.status == 'false'"></i> <i class="fas fa-check-circle text-green" ng-if="i.status == 'true'"></i></li>
-                </ul>
+
                 <h3 class="text-center pb-2"><u>BINGO</u></h3>
                 <ul>
                     <li ng-repeat="i in randomGame">{{i.game}} = <b class="text-red">{{i.number}}</b></li>
                 </ul>
             </div>
 
-            <div class="col-10">
+            <div class="col-md-10">
                 <table>
                     <thead class="thead-light">
                         <tr>
@@ -79,7 +77,32 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <div ng-if="ReadyRoom">
+        <form name="ReadyRoomForm" class="text-center">
+            <div class="login-page">
+                <div class="form">
+                    <h3 class="pb-4" style="color: #fff;">สมาชิกห้อง</h3>
+                    <div class="page-list">
+                        <ul>
+                            <li ng-repeat="x in ctrl.Listplayer">{{x.name}}</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="login" type="submit" ng-click="ctrl.submiteRoom()">เริ่มเกม</button>
+                        </div>
+                        <div class="col-6">
+                            <button id="login" type="submit" ng-click="ctrl.cancelRoom()">ออกจากห้อง</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <style>
@@ -118,4 +141,5 @@
     .text-green {
         color: green;
     }
+    /** end table */
 </style>
