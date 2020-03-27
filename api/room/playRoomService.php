@@ -9,6 +9,7 @@ $postRequest = json_decode($input);
 
 $id_room = @$postRequest->id_room;
 $id_player = @$postRequest->id_player;
+$status = @$postRequest->status;
 
 $resultObj = new \stdClass();
 
@@ -16,12 +17,14 @@ if ($id_room && $id_player) {
     $sql = "INSERT INTO player_room 
     ( 
         `id_player`,
-        `id_room`
+        `id_room`,
+        `status`
     ) 
     VALUES 
     ( 
         '".$id_player."',
-        '".$id_room."'
+        '".$id_room."',
+        '".$status."'
     )";
     $result = mysqli_query($condb, $sql);
     $resultObj->status = '200';

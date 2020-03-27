@@ -1,5 +1,5 @@
 ﻿app.controller('roomController', function($scope, $location, $http, playerService) {
-    _this = this;
+    var _this = this;
     $scope.isShow = false;
     $scope.isCreateRoom = false; //เช็คว่าสร้างหน้างไหม
     this.modelRoom = {
@@ -10,6 +10,7 @@
         password: null,
         id_player: playerService.getId()
     }
+    var status = "player";
 
     this.init = function() {
         loading.open();
@@ -30,7 +31,7 @@
                 $http.post(webConfig.webApi + "room/passwordRoomService.php", model).then((res) => {
                     // console.log("res.data", typeof res.data.status);
                     if (res.data.status) {
-                        goRoom(id);
+                        goRoom(id, status);
                     } else {
                         alert("รหัสเข้าห้องไม่ถูกต้อง")
                     }
@@ -39,16 +40,17 @@
                 })
             }
         } else {
-            goRoom(id);
+            goRoom(id, status);
         }
     }
 
     /** เข้าห้อง */
-    const goRoom = (id) => {
+    const goRoom = (id, status) => {
         // console.log("Room id", id);
         let model = {
             id_room: id,
-            id_player: playerService.getId()
+            id_player: playerService.getId(),
+            status: status
         }
 
         $http.post(webConfig.webApi + "room/playRoomService.php", model)
@@ -80,7 +82,8 @@
                 loading.close();
                 if (res.data.status == "200") {
                     $scope.isCreateRoom = false;
-                    goRoom(res.data.id_room)
+                    status = 'host';
+                    goRoom(res.data.id_room, status)
                 } else if (res.data.status == "404") {
                     alert("Error")
                 }

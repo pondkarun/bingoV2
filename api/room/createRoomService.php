@@ -19,7 +19,7 @@ if ($name) {
         `name`,
         `id_player`,
         `bet`,
-        `password` 
+        `password`
     ) 
     VALUES 
     ( 

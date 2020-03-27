@@ -86,7 +86,9 @@
                     <h3 class="pb-4" style="color: #fff;">สมาชิกห้อง</h3>
                     <div class="page-list">
                         <ul>
-                            <li ng-repeat="x in ctrl.Listplayer">{{x.name}}</li>
+                            <li ng-repeat="x in ctrl.Listplayer">
+                                {{x.name}} <i class="fa fa-home text-green" ng-if="x.status == 'host'"></i>
+                            </li>
                         </ul>
                     </div>
                     <br>
