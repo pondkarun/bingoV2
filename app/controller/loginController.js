@@ -5,7 +5,7 @@
             this.model.password = md5(this.model.passwoord);
             loading.open();
             $http.post(webConfig.webApi + "player/loginService.php", this.model).then((res) => {
-                console.log("res.data", res.data);
+                // console.log("res.data", res.data);
                 loading.close();
                 if (res.data.status == "200") {
                     playerService.saveData(res.data)

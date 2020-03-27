@@ -1,16 +1,34 @@
 'use strict';
-app.controller('navbarController', function($scope, outService, playerService) {
+app.controller('navbarController', function($scope, outService, playerService, $http) {
 
-    this.init = function() {}
+    $scope.Score = 0;
+    this.model = {
+        id_player: playerService.getId()
+    };
 
-    this.logout = () => {
-        let model = {
-            id_player: playerService.getId()
-        }
-        console.log(model);
-        outService.logout(model)
+    this.init = () => {
+        this.getScore();
+
     }
 
+    //** ออกจากระบบ */
+    this.logout = () => {
+        outService.logout(this.model)
+    }
+
+    //** GET คะแนน */
+    this.getScore = () => {
+        $http.post(webConfig.webApi + "player/getScoreService.php", this.model).then((res) => {
+            // console.log("res.data", res.data);
+            $scope.Score = Number(res.data.score)
+        })
+
+        // setInterval(() => {
+        //     $http.post(webConfig.webApi + "player/getScoreService.php", this.model).then((res) => {
+        //         $scope.Score = Number(res.data.score)
+        //     })
+        // }, 3000);
+    }
 
 });
 

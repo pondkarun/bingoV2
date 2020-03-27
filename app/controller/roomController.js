@@ -115,13 +115,13 @@
             $http.get(webConfig.webApi + "room/getRoomService.php").then((res) => {
                 result(res.data)
             })
-        }, 150000);
+        }, 1500);
     }
 
     /** หาห้องที่เคยเข้า */
     const selectRoomMe = () => {
         $http.post(webConfig.webApi + "room/selectRoomMeService.php", this.modelRoom).then((res) => {
-            console.log("res.data", res.data);
+            // console.log("res.data", res.data);
             if (res.data.status) {
                 locationPlayroom(res.data.id_room)
                 loading.close();
